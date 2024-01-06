@@ -1,0 +1,67 @@
+<nav class="navbar navbar-expand-lg bg-body-tertiary mb-4">
+  <div class="container">
+    <a class="navbar-brand" href="/">ShortURL</a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarNav"
+      aria-controls="navbarNav"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="/">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/auth/login">LogIN</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/auth/logout">LogOUT</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/auth/logup">LogUP</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+{{#if urlEdit}}
+  <form action="/editar/{{urlEdit._id}}" method="POST" class="mb-4">
+    <input
+      value="{{urlEdit.origin}}"
+      type="text"
+      placeholder="Ingresa la URL"
+      name="origin"
+      class="form-control my-2"
+    />
+    <button type="submit" class="btn btn-warning w-100 mb-2">Editar</button>
+  </form>
+{{else}}
+  <form action="/" method="POST" class="mb-4">
+    <input
+      type="text"
+      placeholder="Ingresa la URL"
+      name="origin"
+      class="form-control my-2"
+    />
+    <button type="submit" class="btn btn-primary w-100 mb-2">Agregar URL</button>
+  </form>
+{{/if}}
+
+{{#each urls}}
+  <article class="card mb-2">
+    <div class="card-body">
+      <p><strong>Link: </strong> {{this.origin}}</p>
+      <p><strong>ShortLink: </strong>{{this.shortURL}} </p>
+      <a href="/eliminar/{{this._id}}" class="btn btn-danger">Eliminar</a>
+      <a href="/editar/{{this._id}}" class="btn btn-warning">Editar</a>
+      <button data-short="{{this.shortURL}}" class="btn btn-info">Copiar</button>
+    </div>
+  </article>
+{{/each}}
